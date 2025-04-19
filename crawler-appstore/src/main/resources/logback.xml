@@ -62,35 +62,11 @@
     <!-- Spring日志级别控制  -->
     <logger name="org.springframework" level="warn"/>
 
-    <springProfile name="local">
-        <root level="info">
-            <appender-ref ref="consoleAppender"/>
-        </root>
-    </springProfile>
-    <springProfile name="dev">
-        <root level="info">
-            <appender-ref ref="consoleAppender"/>
-            <appender-ref ref="rollingFileAppender_info"/>
-            <appender-ref ref="rollingFileAppender_error"/>
-        </root>
-    </springProfile>
     <springProfile name="test">
         <root level="info">
             <appender-ref ref="consoleAppender"/>
-            <appender-ref ref="rollingFileAppender_info"/>
-            <appender-ref ref="rollingFileAppender_error"/>
-        </root>
-    </springProfile>
-    <springProfile name="pre">
-        <root level="info">
-            <appender-ref ref="rollingFileAppender_info"/>
-            <appender-ref ref="rollingFileAppender_error"/>
-        </root>
-    </springProfile>
-    <springProfile name="prod">
-        <root level="info">
-            <appender-ref ref="rollingFileAppender_info"/>
-            <appender-ref ref="rollingFileAppender_error"/>
+<!--            <appender-ref ref="rollingFileAppender_info"/>-->
+<!--            <appender-ref ref="rollingFileAppender_error"/>-->
         </root>
     </springProfile>
 </configuration>

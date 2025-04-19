@@ -1,6 +1,7 @@
 package com.zzj.crawler.appstore;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
@@ -8,8 +9,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableCaching
 @Slf4j
-//@MapperScan(basePackages = {"com.hthx.org.provider.data.mapper","com.hthx.dept2.integration.check.tenant.mapper"})
-@SpringBootApplication(scanBasePackages = {"com"})
+@MapperScan(basePackages = {"com.zzj.crawler.appstore"})
+@SpringBootApplication(scanBasePackages = {"com.zzj.crawler.appstore"})
 @EnableAsync
 public class CrawlerAppStoreApplication {
     public static void main(String[] args) {
