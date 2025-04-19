@@ -1,0 +1,7 @@
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: crawler-appstore
+  profiles:
+    active: test

@@ -87,6 +87,7 @@
         <module>webmagic-saxon</module>
         <module>webmagic-samples</module>
         <module>webmagic-coverage</module>
+        <module>crawler-appstore</module>
     </modules>
 
     <dependencies>
@@ -123,6 +124,7 @@
     </dependencies>
 
     <dependencyManagement>
+
         <dependencies>
             <dependency>
                 <groupId>org.mockito</groupId>
