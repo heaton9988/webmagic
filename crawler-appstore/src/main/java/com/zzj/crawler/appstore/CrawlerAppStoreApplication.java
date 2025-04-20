@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableCaching
 @Slf4j
-@MapperScan(basePackages = {"com.zzj.crawler.appstore"})
+@MapperScan(basePackages = {"com.zzj.crawler.appstore.data.mapper"})
 @SpringBootApplication(scanBasePackages = {"com.zzj.crawler.appstore"})
 @EnableAsync
 public class CrawlerAppStoreApplication {

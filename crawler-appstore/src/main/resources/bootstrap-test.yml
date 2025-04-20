@@ -1,7 +1,7 @@
 server:
   port: 18085
   servlet:
-    context-path: /monitor-alert
+    context-path: /crawler-appstore
 
 # Spring
 spring:
@@ -57,12 +57,11 @@ mybatis-plus:
     #开启sql日志
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
   mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.hthx.tools.monitoralert.data.model.dao
+  type-aliases-package: com.zzj.crawler.appstore.data.model.dao
 
 logging:
   level:
     com.alibaba.cloud.nacos.client: ERROR
-    com.hthx.tools.monitoralert.data.mapper: DEBUG
 
 swagger-ui:
   enabled: false
