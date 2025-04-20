@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface AppinfoService {
     List<Appinfo> queryAll() throws Exception;
+
+    boolean save(Appinfo entity);
+
+    boolean saveOrUpdate(Appinfo entity);
 }

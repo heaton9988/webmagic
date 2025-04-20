@@ -18,19 +18,21 @@ public class AppStoreTest {
     @Resource
     private AppStorePipeline appStorePipeline;
     @Resource
-    AppStorePageProcessor appStorePageProcessor;
+    private AppStorePageProcessor appStorePageProcessor;
 
     @Test
     public void test() {
         System.setProperty("selenuim_config", "/Users/xingchuan/Desktop/self/webmagic/crawler-appstore/src/main/resources/config.ini");
         System.setProperty("webdriver.chrome.driver", "/Users/xingchuan/framework/chromedriver");
 
+        SeleniumDownloader seleniumDownloader = new SeleniumDownloader();
+
         OOSpider.create(appStorePageProcessor) //
                 .setPipelines(Lists.newArrayList(appStorePipeline)) //
-                .setDownloader(new SeleniumDownloader()) //
+                .setDownloader(seleniumDownloader) //
                 .addUrl( //
-                        "https://apps.apple.com/cn/charts/iphone/%E7%AD%96%E7%95%A5-games/7017" //
-                        , "https://apps.apple.com/cn/charts/ipad" // ipad排行榜
+//                        "https://apps.apple.com/cn/charts/iphone/%E7%AD%96%E7%95%A5-games/7017" //
+                        "https://apps.apple.com/cn/charts/ipad" // ipad排行榜
                         , "https://apps.apple.com/cn/charts/iphone" // iphone排行榜
                 ) //
                 .thread(1) //

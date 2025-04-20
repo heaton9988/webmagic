@@ -25,22 +25,20 @@ public class SeleniumTest {
     @Test
     public void test() {
         List<Appinfo> list = appinfoRepo.list();
-        List<String> urls = list.stream().filter(k -> k.getUrl().contains("/charts/")) //
-                .map(k -> k.getUrl()).collect(Collectors.toList());
+        List<String> urls = list.stream().filter(k -> k.getUrl().contains("/charts/") || k.getUrl().contains("/app/")) //
+                .map(k -> k.getUrl()).collect(Collectors.toList()); //
 
 
-//        List<String> urlList = Lists.newArrayList();
-//        for (int i = 1; i < 3; i++) {
-//            urlList.add(urls.get(i));
-//        }
-//        openUrlsInTabs(urlList);
+        //        List<String> urlList = Lists.newArrayList();
+        //        for (int i = 1; i < 3; i++) {
+        //            urlList.add(urls.get(i));
+        //        }
+        openUrlsInTabs(urls);
 
 
-                    for (String s : urls) {
-                    System.out.println(s);
-                }
-
-
+        for (String s : urls) {
+            System.out.println(s);
+        }
 
 
     }

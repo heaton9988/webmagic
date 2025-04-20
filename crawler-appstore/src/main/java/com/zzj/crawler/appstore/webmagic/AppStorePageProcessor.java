@@ -1,50 +1,58 @@
 package com.zzj.crawler.appstore.webmagic;
 
 
-import cn.hutool.core.collection.CollUtil;
+import com.beust.jcommander.internal.Lists;
 import com.zzj.crawler.appstore.data.model.dao.Appinfo;
-import com.zzj.crawler.appstore.repo.AppinfoRepo;
+import com.zzj.crawler.appstore.service.AppinfoService;
+import com.zzj.crawler.appstore.util.GsonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
+import us.codecraft.webmagic.selector.Html;
+import us.codecraft.webmagic.selector.Selectable;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+@Slf4j
 @Component
 public class AppStorePageProcessor implements PageProcessor {
     @Resource
-    AppinfoRepo appinfoRepo;
+    AppinfoService appinfoService;
 
     @Override
     // process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
     public void process(Page page) {
-        // 部分二：定义如何抽取页面信息，并保存下来
-//        List<String> resultsList = page.getHtml().xpath("//div[@data-testid='results-list']").all();
-        List<String> resultsList = page.getHtml().xpath("//a[@class='we-genre-filter__item']").links().all();
-        if (CollUtil.isNotEmpty(resultsList)) {
-            // 这是列表页
-            List<String> all = page.getHtml().xpath("").links().all();
-            for (String s : all) {
-                Appinfo appinfoEntity=new Appinfo();
-                appinfoEntity.setUrl(s);
-                appinfoRepo.save(appinfoEntity);
-                System.out.println("zzj: " + s);
-            }
-        } else {
+        Selectable pageUrlObj = page.getUrl();
+        Html html = page.getHtml();
 
+        String pageUrl = pageUrlObj.toString();
+
+        appinfoService.saveOrUpdate(Appinfo.builder().url(pageUrl).objHtml(GsonUtil.serialize(html)).build());
+
+        List<String> resultUrlList = html.links().all();
+        for (String resultUrl : resultUrlList) {
+            if (resultUrl.contains("/charts/") || resultUrl.contains("/app/")) {
+                boolean saveResult = appinfoService.save(Appinfo.builder().url(resultUrl).parentUrl(pageUrl).build());
+                if (saveResult) {
+                    page.addTargetRequests(Lists.newArrayList(resultUrl));
+                }
+            } else {
+                log.warn("resultUrl ignored: " + resultUrl);
+            }
         }
+
         //        page.putField("name", page.getHtml().xpath("//h1[@class='entry-title public']/strong/a/text()").toString());
         //        if (page.getResultItems().get("name") == null) {
         //            //skip this page
         //            page.setSkip(true);
         //        }
-        //        page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
 
         // 部分三：从页面发现后续的url地址来抓取
-        //        page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/[\\w\\-]+/[\\w\\-]+)").all());
     }
+
 
     @Override
     public Site getSite() {

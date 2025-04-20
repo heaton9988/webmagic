@@ -1,12 +1,12 @@
 package com.zzj.crawler.appstore.data.model.dao;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -21,39 +21,86 @@ import java.time.LocalDateTime;
  * @since 2025-04-20
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@ToString
 @TableName("c_appinfo")
 @ApiModel(value = "Appinfo对象", description = "app表")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Appinfo implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "主键")
+    /**
+     * 主键
+     */
+    @ApiModelProperty("主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "app详情页url")
+    /**
+     * app详情页url
+     */
+    @TableField("url")
+    @ApiModelProperty("app详情页url")
     private String url;
 
-    @ApiModelProperty(value = "html源码")
-    private String html;
+    /**
+     * 来源url
+     */
+    @TableField("parent_url")
+    @ApiModelProperty("来源url")
+    private String parentUrl;
 
-    @ApiModelProperty(value = "开发商code")
+    /**
+     * page.getHtml返回的obj
+     */
+    @TableField("obj_html")
+    @ApiModelProperty("page.getHtml返回的obj")
+    private String objHtml;
+
+    /**
+     * 开发商code
+     */
+    @ApiModelProperty("开发商code")
+    @TableField("developer_code")
     private String developerCode;
 
+    @TableField("name")
     private String name;
 
-    @ApiModelProperty(value = "评分 5分制")
+    /**
+     * 评分 5分制
+     */
+    @TableField("score")
+    @ApiModelProperty("评分 5分制")
     private BigDecimal score;
 
-    @ApiModelProperty(value = "创建人")
+    /**
+     * 创建人
+     */
+    @TableField("creator")
+    @ApiModelProperty("创建人")
     private String creator;
 
-    @ApiModelProperty(value = "创建时间")
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty("创建时间")
+    @TableField("created_time")
     private LocalDateTime createdTime;
 
-    @ApiModelProperty(value = "更新人")
+    /**
+     * 更新人
+     */
+    @TableField("updater")
+    @ApiModelProperty("更新人")
     private String updater;
 
-    @ApiModelProperty(value = "更新时间")
+    /**
+     * 更新时间
+     */
+    @ApiModelProperty("更新时间")
+    @TableField("updated_time")
     private LocalDateTime updatedTime;
 }
